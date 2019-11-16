@@ -22,8 +22,10 @@ function text(){
 	fi
 
 	if [[ ${num} =~ ^\+[0-9]{12}$ ]] || [[ ${num} =~ ^\+[0-9]{11}$ ]] || [[ ${num} =~ ^[0-9]{10}$ ]] ; then 
-		curl -X POST https://textbelt.com/text        --data-urlencode phone='2025945672'        --data-urlencode message="${message}"        -d key="${key}"; 
-		echo -e "\nNubmer: ${num}"
+		p_num=num
+		num=$(echo ${num} | sed 's/+/%2B/g')
+		curl -X POST https://textbelt.com/text        --data-urlencode phone='${num}'        --data-urlencode message="${message}"        -d key="${key}"; 
+		echo -e "\nNubmer: ${p_num}"
 		echo "Text: ${message}"
 	fi
 }
